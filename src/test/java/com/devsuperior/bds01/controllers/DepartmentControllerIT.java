@@ -1,9 +1,5 @@
 package com.devsuperior.bds01.controllers;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -13,24 +9,28 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 @SpringBootTest
 @AutoConfigureMockMvc
 @Transactional
 public class DepartmentControllerIT {
 
-	@Autowired
-	private MockMvc mockMvc;
-	
-	@Test
-	public void findAllShouldReturnAllResourcesSortedByName() throws Exception {
-		
-		ResultActions result =
-				mockMvc.perform(get("/departments")
-					.contentType(MediaType.APPLICATION_JSON));
+    @Autowired
+    private MockMvc mockMvc;
 
-		result.andExpect(status().isOk());
-		result.andExpect(jsonPath("$[0].name").value("Management"));
-		result.andExpect(jsonPath("$[1].name").value("Sales"));
-		result.andExpect(jsonPath("$[2].name").value("Training"));
-	}
+    @Test
+    public void findAllShouldReturnAllResourcesSortedByName() throws Exception {
+
+        ResultActions result =
+                mockMvc.perform(get("/departments")
+                        .contentType(MediaType.APPLICATION_JSON));
+
+        result.andExpect(status().isOk());
+        result.andExpect(jsonPath("$[0].name").value("Management"));
+        result.andExpect(jsonPath("$[1].name").value("Sales"));
+        result.andExpect(jsonPath("$[2].name").value("Training"));
+    }
 }
